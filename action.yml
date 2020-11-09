@@ -1,0 +1,49 @@
+name: Fork News
+description: Keeps your fork up to date
+author: Vitor Nunes
+inputs:
+  access-token:
+    description: '' #TODO
+    required: true
+  from-repository:
+    description: '' #TODO
+    required: false
+    default: fork-upstream
+  to-branch:
+    description: '' #TODO
+    required: false
+    default: main
+  from-branch:
+    description: '' #TODO
+    required: false
+    default: main
+  pr-title:
+    description: '' #TODO
+    required: false
+    default: Fork News - Updates on the parent repository
+  pr-description:
+    description: '' #TODO
+    required: false
+    default: Here are the latest changes on the parent repository.
+runs:
+  using: composite
+  steps:
+    - id: git-step
+      shell: bash
+      run: >-
+        ${{ github.action_path }}/git_step.sh 
+        ${{ inputs.access-token }} 
+        ${{ github.repository }}
+        ${{ inputs.to-branch }}
+        ${{ inputs.from-repository }}
+        ${{ inputs.from-branch }}
+    - id: pr-step
+      shell: bash
+      run: >-
+        ${{ github.action_path }}/pr_step.sh 
+        ${{ inputs.access-token }} 
+        ${{ github.repository }} 
+        ${{ steps.git-step.outputs.fork-news-branch }}
+        ${{ inputs.to-branch }}
+        "${{ inputs.pr-title }}"
+        "${{ inputs.pr-description }}"
