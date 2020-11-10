@@ -10,7 +10,7 @@ readonly TO=$4
 readonly TITLE=$5
 readonly BODY=$6
 
-curl \
+curl -s \
   -X POST \
   -H "Accept: application/vnd.github.v3+json" \
   -H "Authorization: token $ACCESS_TOKEN" \
