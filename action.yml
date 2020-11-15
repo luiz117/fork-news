@@ -55,4 +55,4 @@ runs:
         ${{ inputs.to-branch }}
         "${{ inputs.pr-title }}"
         "${{ inputs.pr-description }}"
-        "${{ inputs.pr-reviewers}}"
+        "${{ inputs.pr-reviewers }}"
