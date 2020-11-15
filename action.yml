@@ -20,15 +20,11 @@ inputs:
   pr-title:
     description: '' #TODO
     required: false
-    default: Fork News - Updates on the parent repository
+    default: Fork News - Updates from the parent repository
   pr-description:
     description: '' #TODO
     required: false
-    default: Here are the latest changes on the parent repository.
-  pr-reviewers:
-    description: '' #TODO Comma separated
-    required: false
-    default: ''
+    default: Here are the latest changes from the parent repository.
 runs:
   using: composite
   steps:
@@ -55,4 +51,3 @@ runs:
         ${{ inputs.to-branch }}
         "${{ inputs.pr-title }}"
         "${{ inputs.pr-description }}"
-        "${{ inputs.pr-reviewers }}"
