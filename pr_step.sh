@@ -24,4 +24,4 @@ curl \
   -H "Accept: application/vnd.github.v3+json" \
   -H "Authorization: token $ACCESS_TOKEN" \
   https://api.github.com/repos/"$REPO"/issues/"$pr_id"/comments \
-  -d "{\"body\":[\"@$USERS\"]}"
+  -d "{\"body\":\"@$USERS\"}"
