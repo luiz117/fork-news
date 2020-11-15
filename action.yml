@@ -28,6 +28,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - id: update-step
+      shell: bash
+      run: >- 
+        ${{ github.action_path }}/update_step.sh 
     - id: git-step
       shell: bash
       run: >-
