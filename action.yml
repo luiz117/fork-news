@@ -25,10 +25,10 @@ inputs:
     description: '' #TODO
     required: false
     default: Here are the latest changes on the parent repository.
-  tag-users:
+  pr-reviewers:
     description: '' #TODO Comma separated
     required: false
-    default: ${{ github.actor }}
+    default: ''
 runs:
   using: composite
   steps:
@@ -55,4 +55,4 @@ runs:
         ${{ inputs.to-branch }}
         "${{ inputs.pr-title }}"
         "${{ inputs.pr-description }}"
-        "${{ inputs.tag-users }}"
+        "${{ inputs.pr-reviewers}}"
