@@ -25,7 +25,7 @@ readonly FORK_ERROR=4
 
 # Clone the current repo
 readonly current_repo_url=${REPO_URL_TEMPLATE/REPO/"$REPO_NAME"}
-if ! git clone -q \
+if ! git clone -q --single-branch \
     -b "$TO_BRANCH" \
     "$current_repo_url" "$REPO_FOLDER"; then
     exit "$GIT_ERROR"
