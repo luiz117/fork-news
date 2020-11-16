@@ -3,26 +3,26 @@ description: Keeps your fork up to date
 author: Vitor Nunes
 inputs:
   access-token:
-    description: '' #TODO
+    description: 'Access token with the repo scope used to access the repository and open PRs.'
     required: true
   from-repository:
-    description: '' #TODO
+    description: 'Path to the upstream repository (owner/repository). Use the value fork-upstream to point it to the default upstream.'
     required: false
     default: fork-upstream
   to-branch:
-    description: '' #TODO
+    description: 'Target branch of the pull request.'
     required: false
     default: main
   from-branch:
-    description: '' #TODO
+    description: 'Base branch of the pull request.'
     required: false
     default: main
   pr-title:
-    description: '' #TODO
+    description: 'Message used as the PR title.'
     required: false
     default: Fork News - Updates from the parent repository
   pr-description:
-    description: '' #TODO
+    description: 'Message used as the PR body'
     required: false
     default: Here are the latest changes from the parent repository.
 runs:
