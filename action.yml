@@ -1,6 +1,9 @@
 name: Fork News
 description: Keeps your fork up to date
 author: Vitor Nunes
+branding:
+  icon: 'calendar'  
+  color: 'blue'
 inputs:
   access-token:
     description: 'Access token with the repo scope used to access the repository and open PRs.'
