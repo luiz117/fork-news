@@ -18,12 +18,37 @@
 </p>
 
 ## Installation
-TODO
+
+1. Add the file `fork-news.yml` to the `.github/workflows` folder. To create a new folder in a repository click on "Add file" and then “Create new file”. Type your new folder’s name in the area where you would write the file name, and at the end of the file name type a `/` to initilize it as a folder. After this you can create a new file in the folder.
+2. Copy and paste the following content to your `fork-news.yml`. This will check for updates on a weekly basis, for more options change the cron schedule expression based on your needs. [Crontab guru](https://crontab.guru/) can be very helpful for that:
+
+```yaml
+name: Fork News
+on:
+  schedule:
+    - cron: '0 10 * * 1' # Checks for updates every Monday at 10:00 AM
+jobs:
+  fork-news:
+    runs-on: ubuntu-latest
+    name: Syncing with parent repository
+    steps:
+      - id: fork-news-sync
+        uses: vitornovictor/fork-news@v1.0.0
+        with:
+          from-branch: master
+          to-branch: master
+          access-token: ${{ secrets.FORK_NEWS_TOKEN }}
+```
+
+3. Create a [Github access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) with the `repo` scope and add it as a [secret to your repository](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository). e.g. `FORK_NEWS_TOKEN`.
+4. Wait for the latest updates!
 
 ## Usage
-TODO
+
+Check the [`action.yml`](https://github.com/VitorNoVictor/fork-news/blob/main/action.yml) for more parameters to configure Fork News. 
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
