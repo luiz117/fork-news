@@ -47,6 +47,10 @@ jobs:
 
 Check the [`action.yml`](https://github.com/VitorNoVictor/fork-news/blob/main/action.yml) for more parameters to configure Fork News. 
 
+### Email Notifications
+
+It's possible to configure GitHub to send email notifications for PRs created by your own user. Go to __Settings > Notifications__ and under __Email notification preferences__ enable the option __Include your own updates__.
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
