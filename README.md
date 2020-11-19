@@ -19,7 +19,7 @@
 
 ## Installation
 
-1. Add the file `fork-news.yml` to the `.github/workflows` folder. To create a new folder in a repository click on "Add file" and then “Create new file”. Type your new folder’s name in the area where you would write the file name, and at the end of the file name type a `/` to initilize it as a folder. After this you can create a new file in the folder.
+1. Add the file `fork-news.yml` to the `.github/workflows` folder. To create a new folder in a repository using the GitHub interface click on "Add file" and then “Create new file”. Type your new folder’s name in the area where you would write the file name, and at the end of the file name type a `/` to initilize it as a folder. After this you can create a new file in the folder.
 2. Copy and paste the following content to your `fork-news.yml`. This will check for updates on a weekly basis, for more options change the cron schedule expression based on your needs. [Crontab guru](https://crontab.guru/) can be very helpful for that:
 
 ```yaml
