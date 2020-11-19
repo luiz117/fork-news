@@ -30,7 +30,7 @@ on:
 jobs:
   fork-news:
     runs-on: ubuntu-latest
-    name: Syncing with parent repository
+    name: Sync with parent repository
     steps:
       - id: fork-news-sync
         uses: vitornovictor/fork-news@v1.0.0
