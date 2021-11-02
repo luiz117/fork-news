@@ -63,6 +63,7 @@ readonly changes_ahead=$(
 )
 if [[ ${changes_ahead} -le ${CHANGES_THRESHOLD} ]]; then
     echo 'No changes to merge.'
+    echo "::set-output name=has_new_commits::false"
     exit "$NO_CHANGES"
 fi
 
@@ -86,3 +87,4 @@ rm -rf "$REPO_FOLDER"
 
 # Print the merge branch
 echo "::set-output name=fork-news-branch::$fork_news_branch"
+echo "::set-output name=has_new_commits::true"
