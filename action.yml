@@ -61,6 +61,7 @@ runs:
         ${{ inputs.to-branch }}
         ${{ inputs.from-repository }}
         ${{ inputs.from-branch }}
+        ${{ github.actor }}
     - id: pr-step
       shell: bash
       run: >-
