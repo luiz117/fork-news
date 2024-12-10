@@ -5,6 +5,12 @@ branding:
   icon: 'calendar'  
   color: 'blue'
 inputs:
+  user-email:
+    description: 'email.'
+    required: true
+  user-name:
+    description: 'name.'
+    required: true
   access-token:
     description: 'Access token with the repo scope used to access the repository and open PRs.'
     required: true
@@ -28,6 +34,12 @@ inputs:
     description: 'Message used as the PR body'
     required: false
     default: Here are the latest changes from the parent repository.
+
+outputs:
+  has_new_commits:
+    description: 'true when new commits were included in this sync'
+    value: ${{ steps.git-step.outputs.has_new_commits }}
+
 runs:
   using: composite
   steps:
@@ -35,6 +47,11 @@ runs:
       shell: bash
       run: >- 
         ${{ github.action_path }}/update_step.sh 
+    - id: config
+      shell: bash
+      run: |
+        git config --global user.email "${{ inputs.user-email }}"
+        git config --global user.name "${{ inputs.user-name }}"
     - id: git-step
       shell: bash
       run: >-
@@ -44,6 +61,7 @@ runs:
         ${{ inputs.to-branch }}
         ${{ inputs.from-repository }}
         ${{ inputs.from-branch }}
+        ${{ github.actor }}
     - id: pr-step
       shell: bash
       run: >-

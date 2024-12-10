@@ -10,6 +10,7 @@ readonly REPO_NAME=$2
 readonly TO_BRANCH=$3
 readonly FROM_REPO=$4
 readonly FROM_BRANCH=$5
+readonly GITHUB_ACTOR=$6
 
 # Configuration
 readonly PARENT_UPSTREAM_REPO='fork-upstream'
@@ -17,13 +18,14 @@ readonly REMOTE_ORIGIN='origin'
 readonly REMOTE_UPSTREAM='upstream'
 readonly CHANGES_THRESHOLD=0
 readonly REPO_FOLDER='tmp-repo'
-readonly REPO_URL_TEMPLATE="https://$ACCESS_TOKEN@github.com/REPO.git"
+readonly REPO_URL_TEMPLATE="https://$GITHUB_ACTOR:$ACCESS_TOKEN@github.com/REPO.git"
 readonly NO_CHANGES=0
 readonly GIT_ERROR=2
 readonly FILE_ERROR=3
 readonly FORK_ERROR=4
 
 # Clone the current repo
+echo "Clone the current repo"
 readonly current_repo_url=${REPO_URL_TEMPLATE/REPO/"$REPO_NAME"}
 if ! git clone -q --single-branch \
     -b "$TO_BRANCH" \
@@ -33,6 +35,7 @@ fi
 cd "$REPO_FOLDER" || exit "$FILE_ERROR"
 
 # Find the source repo
+echo "Find the source repo - $REPO_NAME"
 source_repo_name="$FROM_REPO"
 if [[ "$source_repo_name" == "$PARENT_UPSTREAM_REPO" ]]; then
     readonly repo_data=$(
@@ -50,11 +53,13 @@ fi
 readonly source_repo_url=${REPO_URL_TEMPLATE/REPO/"$source_repo_name"}
 
 # Update current state
+echo "Update current state"
 readonly timestamp=$(date +%s)
 git checkout -q "$BRANCH"
 git fetch -q "$REMOTE_ORIGIN"
 
 # Add and update the upstream
+echo "Add and update the upstream"
 git remote add "$REMOTE_UPSTREAM" "$source_repo_url"
 git fetch -q "$REMOTE_UPSTREAM"
 
@@ -63,10 +68,12 @@ readonly changes_ahead=$(
 )
 if [[ ${changes_ahead} -le ${CHANGES_THRESHOLD} ]]; then
     echo 'No changes to merge.'
+    echo "::set-output name=has_new_commits::false"
     exit "$NO_CHANGES"
 fi
 
 # Checkout and merge
+echo "Checkout and merge"
 readonly temp_branch="fork-news-temp-${BRANCH}-${timestamp}"
 readonly fork_news_branch="fork-news-${BRANCH}-${timestamp}"
 git checkout -q -b "$temp_branch" "$REMOTE_UPSTREAM/$FROM_BRANCH"
@@ -79,6 +86,7 @@ git commit -q -m "Fork news" --allow-empty
 git push -q -u "$REMOTE_ORIGIN" "$fork_news_branch"
 
 # Clean up
+echo "Clean up"
 git remote remove "$REMOTE_UPSTREAM"
 git branch -q -D "$temp_branch"
 cd ..
@@ -86,3 +94,4 @@ rm -rf "$REPO_FOLDER"
 
 # Print the merge branch
 echo "::set-output name=fork-news-branch::$fork_news_branch"
+echo "::set-output name=has_new_commits::true"

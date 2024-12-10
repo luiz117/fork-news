@@ -11,6 +11,7 @@ readonly TITLE=$5
 readonly BODY=$6
 readonly REVIEWERS=$7
 
+echo "fork_news_pr"
 readonly fork_news_pr=$(curl -s \
   -X POST \
   -H "Accept: application/vnd.github.v3+json" \
@@ -22,6 +23,7 @@ if [ -z "$REVIEWERS" ]; then
       exit 0
 fi
 
+echo "pr"
 readonly pr_id=$(echo "$fork_news_pr" | jq -r .number)
 curl -s \
   -X POST \
